@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>ng_Example</title>
+    <style>
+        table, th, td {
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid black;
+            display: inline-block;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid black;
+            display: inline-block;
+        }
+        th{
+            cursor:pointer;
+        }
+    </style>
+    <script src="angular.min.js"></script>
+    <script>
+        var demoApp = angular.module("demoApp", []);
+        /*
+        demoApp.controller('simpleController',function($scope) {
+            $scope.names = [
+                {name: 'Yangsui', city: 'Changsha'},
+                {name: 'Shubin', city: 'Atlanta'},
+                {name: 'Zongbian', city: 'Shaodong'},
+                {name: 'Ziang', city: 'Chengdu'}
+            ];
+        });*/
+        var controllers = {};
+        controllers.simpleController = function ($scope) {
+            $scope.names = [
+                {name: 'Yangsui', city: 'Changsha'},
+                {name: 'Shubin', city: 'Atlanta'},
+                {name: 'Zongbian', city: 'Shaodong'},
+                {name: 'Ziang', city: 'Chengdu'}
+            ];
+            $scope.info = [
+                {name: "Yangsui", age: 21, city: 'Changsha'},
+                {name: "Shubin", age: 24, city: 'Atlanta'},
+                {name: "Baizong", age: 23, city: 'Chengdu'},
+                {name: "Zongbian", age: 20, city: 'Shaodong'}
+
+            ];
+            $scope.rowToShow = 4;
+            $scope.sortWay = "age";
+            $scope.uod = 'false';
+
+            $scope.sortData = function (colum) {
+                $scope.uod = ($scope.sortWay == colum) ? !$scope.uod : 'false';
+                $scope.sortWay = colum;
+            }
+            $scope.getClass = function (colum) {
+                if ($scope.sortWay == colum) {
+                    return ($scope.uod) ? 'arrow-down':'arrow-up';
+                }
+                return '';
+            }
+            $scope.search = function(item){
+                  if($scope.searchText == undefined){
+                       return true;
+                  }else{
+                      if(item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                          item.city.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1){
+                          return true;
+                      }
+                  }
+                  return false;
+            }
+        }
+        demoApp.controller(controllers);
+        /*
+        demoApp.config(function($routeProvider){
+              $routeProvider
+                  .when({'/',
+                      controller:'simpleController',
+                      templateUrl:'view1.html'
+                  })
+                  .when({'/partial2',
+                      controller:'simpleController',
+                      templateUrl:'view2.html'
+                  })
+                  .otherwise({redirectTo:'/'});
+        });*/
+    </script>
+
+</head>
+<body data-ng-controller="simpleController">
+
+<div>
+    Name:<br/>
+    <input type="text" data-ng-model="name_m">{{name_m}}<br/>
+    <ul>
+        <li data-ng-repeat="i in names | filter:name_m | orderBy : 'city'">
+            {{i.name}} - {{i.city}}
+        </li>
+    </ul>
+</div>
+<br/>
+<br/>
+<div>
+    Rows to Show: <input type="number" step="1" min="1" , max="4" ng-model="rowToShow"><br />
+    Search Function for Name and City: <input type = "text" placeholder = "Type to Search..." ng-model = "searchText">
+    <table>
+        <thead>
+        <tr>
+            <th ng-click="sortData('name')">Name
+                <div ng-class="getClass('name')"></div>
+            </th>
+            <th ng-click="sortData('age')">age
+                <div ng-class="getClass('age')"></div>
+            </th>
+            <th ng-click="sortData('city')">city
+                <div ng-class="getClass('city')"></div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="person in info | limitTo:rowToShow| orderBy:sortWay:uod|filter:search">
+            <td>
+                {{person.name|uppercase}}
+            </td>
+            <td>
+                {{person.age|number:1}}
+            </td>
+            <td>
+                {{person.city|lowercase}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

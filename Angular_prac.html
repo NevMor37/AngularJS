@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularDemo</title>
+    <script src = "angular.min.js"></script>
+    <script>
+          /*
+AngularJS extends HTML with ng-directives.
+
+The ng-app directive defines an AngularJS application.
+
+The ng-model directive binds the value of HTML controls (input, select, textarea) to application data.
+
+The ng-bind directive binds application data to the HTML view.
+
+The ng-init directive initializes AngularJS application variables. You can either add data or not.
+           */
+    </script>
+</head>
+<body>
+        <div ng-app = "myApp" ng-controller = "myCtrl" ng-init = "myCol = 'lightblue'">
+               First Name : <input type = "text" ng-model = "firstName"><br />
+               Last Name : <input type = "text" ng-model = "lastName"><br />
+               Full Name : {{firstName + " " + lastName}}<br />
+               <input style = "background-color:{{myCol}}" ng-model = "myCol" value = "{{myCol}}">
+        </div><br />
+        <script>
+              var app = angular.module('myApp', []);
+              app.controller('myCtrl', function($scope){
+                      $scope.firstName = "Yangsui";
+                      $scope.lastName = "Deng";
+              });
+        </script>
+</body>
+</html>

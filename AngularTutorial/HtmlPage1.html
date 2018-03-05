@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularT</title>
+    <script src="../angular.min.js"></script>
+    <script src="Script.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="myController">
+    <input type="text" ng-model="message"><br/>
+    {{message}}
+    <br/>
+    <div>
+        FirstName : {{employee.firstName}}
+    </div>
+    <div>
+        LastName : {{employee.lastName}}
+    </div>
+    <div>
+        Gender : {{employee.gender}}
+    </div>
+    <!--
+    <img src = "hotGirl.jpg" style = "height:200px;width : 400px">
+    CSS WAY To Display
+    -->
+    <div>
+        <img ng-src="{{girl.img}}"
+             style="height : 250px;width : 400px"
+        >
+    </div>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>HomeTown</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="friend in friends">
+                <td>{{friend.name}}</td>
+                <td>{{friend.home}}
+            </tr>
+        </table>
+    </div>
+    <div>
+        <ul>
+            <li ng-repeat="contry in contries">
+                {{contry.name}} -Index = {{$index}}
+                <ul>
+                    <li ng-repeat="city in contry.cities">
+                        {{city.name}} - ParentIndex = {{$parent.$index}} CurrentIndex = {{$index}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>

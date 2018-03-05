@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>RootScopeEx</title>
+    <script src="../angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller = "redController">
+           Red says: {{red}}<br />
+           rootColor2 says: {{rootColor2}}<br />
+           green says:<span style = "color:red" ng-show = "green == undefined">
+           green is undefined
+    </div>
+    <br />
+    <div ng-controller = "greenController">
+        Red says: {{red}}<br />
+        rootColor2 says: {{rootColor2}}<br />
+        green says: <span style = "color:red" ng-show = "red == undefined">
+           red is undefined
+    </span>
+    </div>
+<script>
+       var app = angular.module("myModule", [])
+           .controller("redController", function($scope, $rootScope){
+                  $scope.red = "I am red color";
+                  $rootScope.rootColor1 = "I am a rootScope color from 1st controller";
+           })
+           .controller("greenController", function($scope, $rootScope){
+               $scope.green = "I am green color";
+               $rootScope.rootColor2 = "I am a rootScope color from 2nd controller";
+           });
+</script>
+</body>
+</html>

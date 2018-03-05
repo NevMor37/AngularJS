@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>HtmlPage2</title>
+    <script src="../angular.min.js"></script>
+    <script src="Script2.js"></script>
+    <style>
+        table, tr, td, th {
+            border: black solid 1px;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px;
+        }
+        th{
+             cursor:pointer;
+        }
+        .arrow-up{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid black;
+            display: inline-block;
+        }
+        .arrow-down{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid black;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body ng-controller="myController">
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Like/Dislike</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="technology in technologies">
+            <td>{{technology.name}}</td>
+            <td>{{technology.likes}}</td>
+            <td>{{technology.dislikes}}</td>
+            <td>
+                <input type="button" value="Like" ng-click="increamentLikes(this.technology)">
+                <input type="button" value="Dislike" ng-click="increamentDislikes(this.technology)">
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<br/>
+<br/>
+<div>
+    Rows to Display: <input type = "number" step = "1" min = "0" max = "5" ng-model = "rowLimit"><br />
+
+    Order By : <select ng-model = "sortCol">
+                     <option value = "name">Name ASD</option>
+                     <option value = "dateOfBirth">Date of Birth</option>
+                     <option value = "gender">Gender</option>
+                     <option value = "salary">Salary DESC</option>
+               </select><br />
+    Search: <input type = "text" placeholder = "Type to search name only..." ng-model = "searchText.name">
+            <input type = "text" placeholder = "Type to search gender only..." ng-model = "searchText.gender">
+            <input type = "checkbox" ng-model = "exactMatch">Exact Match<br />
+            <input type = "checkbox" ng-model = "hideGender">Click to hide gender<br/>
+    <table>
+        <thead>
+        <tr>
+            <th ng-click = "sortData('name')">Name
+                <div ng-class="getSortClass('name')">
+                </div>
+            </th>
+            <th ng-click = "sortData('dateOfBirth')">Date of Birth
+                <div ng-class = "getSortClass('dateOfBirth')"></div>
+            </th>
+            <th ng-click = "sortData('gender')" ng-hide = "hideGender">Gender
+                <div ng-class = "getSortClass('gender')"></div>
+            </th>
+            <th ng-click = "sortData('salary')">Salary
+                <div ng-class = "getSortClass('salary')"></div>
+            </th>
+            <th>Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="employee in employees|limitTo:rowLimit|orderBy:sortCol:reverseSort|filter:searchText:exactMatch">
+            <td>{{employee.name | uppercase}}</td>
+            <td>{{employee.dateOfBirth | date:"dd/MM/yyyy"}}</td>
+            <td ng-hide = "hideGender">{{employee.gender}}</td>
+            <td>{{employee.salary | number:1}}</td>
+            <td>{{employee.salary | currency :"¥"}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>HtmlPage3</title>
+    <script src="../angular.min.js"></script>
+    <script src="Script3.js"></script>
+</head>
+<body ng-controller = "myController">
+        <ul>
+              <li ng-repeat = "ele in info track by $index">
+                  {{ele.name}} - {{ele.race}}
+              </li>
+        </ul>
+       <table>
+           <thead>
+                 <tr>
+                     <th>id</th>
+                     <th>fname</th>
+                     <th>lname</th>
+                     <th>age</th>
+                     <th>hometown</th>
+                     <th>job</th>
+                 </tr>
+           </thead>
+           <tbody>
+               <tr ng-repeat = "ele in info2"></tr>
+               <td>{{ele.id}}</td>
+               <td>{{ele.firstname}}</td>
+               <td>{{ele.lastname}}</td>
+               <td>{{ele.age}}</td>
+               <td>{{ele.hometown}}</td>
+               <td>{{ele.job}}</td>
+           </tbody>
+       </table>
+        <div id = "showT"></div>
+</body>
+</html>
